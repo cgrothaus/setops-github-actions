@@ -58,7 +58,7 @@ runs:
   using: composite
   steps:
     - name: Install Setops
-      uses: setopsco/github-actions/setup@v3
+      uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action
       with:
         setops_api_url: https://${{ inputs.setops-api-domain }}
         setops_organization: ${{ inputs.setops-organization }}

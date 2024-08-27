@@ -49,17 +49,18 @@ jobs:
 ```
 
 You can deploy from one branch to multiple setops stages by setting the output in the `setops_stages` job to a space separated list of stages like this:
+
 ```
    echo 'stages=production demo' >> $GITHUB_OUTPUT
 ```
 
-> :warning: **Github Rate Limit**: It is strongly recommended to provide the github-token secret to  reduce the risk of a rate limit error from the Github API during setup of the SetOps CLI!
+> :warning: **Github Rate Limit**: It is strongly recommended to provide the github-token secret to reduce the risk of a rate limit error from the Github API during setup of the SetOps CLI!
 
 This workflow
 
-* Builds a docker image based on the `Dockerfile` in the project's root folder and pushes it to the SetOps registry.
-* Deploys the image to every app configured in `setops-apps`. If you configure more than one stage in `setops-stages`, the workflow will deploy each stage in parallel.
-* The script waits for the apps to run and checks, if the [Container Health Check](https://docs.setops.co/latest/user/configuration/apps/#container-health-check) succeeds for all apps if there is a health check configured.
+- Builds a docker image based on the `Dockerfile` in the project's root folder and pushes it to the SetOps registry.
+- Deploys the image to every app configured in `setops-apps`. If you configure more than one stage in `setops-stages`, the workflow will deploy each stage in parallel.
+- The script waits for the apps to run and checks, if the [Container Health Check](https://docs.setops.co/latest/user/configuration/apps/#container-health-check) succeeds for all apps if there is a health check configured.
 
 See the [workflow file](.github/workflows/build-and-deployment-workflow.yml) for all possible inputs.
 
@@ -84,31 +85,31 @@ The default configuration installs the latest version of SetOps CLI and a wrappe
 
 ```yaml
 steps:
-- uses: setopsco/github-actions/setup@v3
-  with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
+  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 A specific version of SetOps CLI can be installed:
 
 ```yaml
 steps:
-- uses: setopsco/github-actions/setup@v3
-  with:
-    setops_version: 1.0.0
-    github_token: ${{ secrets.GITHUB_TOKEN }}
+  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action
+    with:
+      setops_version: 1.0.0
+      github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 Credentials for SetOps can be configured:
 
 ```yaml
 steps:
-- uses: setopsco/github-actions/setup@v3
-  with:
-    setops_organization: <yourorganization>
-    setops_username: my-ci-user@setops.co
-    setops_password: ${{ secrets.SETOPS_PASSWORD }}
-    github_token: ${{ secrets.GITHUB_TOKEN }}
+  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action
+    with:
+      setops_organization: <yourorganization>
+      setops_username: my-ci-user@setops.co
+      setops_password: ${{ secrets.SETOPS_PASSWORD }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 > :warning: **If you use Dependabot**: By default Dependabot does not have access to your Action secrets and merges & PR workflows will fail due to missing credentials. If you like grant Dependabot access to SetOps, add the secrets to the Dependabot Secrets in the repository settings as well.
@@ -150,10 +151,10 @@ See the [action file](build-and-push-image/action.yml) for all possible inputs.
 
 The action
 
-* Pushes images for all configured apps
-* Runs the pre-deploy command within the first of the configured apps (`web` here)
-* Activates all images
-* Waits until all new tasks are healthy (if a health check is configured)
+- Pushes images for all configured apps
+- Runs the pre-deploy command within the first of the configured apps (`web` here)
+- Activates all images
+- Waits until all new tasks are healthy (if a health check is configured)
 
 You can also use the action without the workflow:
 
@@ -170,7 +171,7 @@ deploy:
       uses: actions/checkout@v3
     - name: "Deploy project on SetOps"
       id: deploy
-      uses: setopsco/github-actions/deployment@v3
+      uses: cgrothaus/setops-github-actions/deployment@use-node20-for-github-action
       with:
         setops-organization: <yourorganization>
         setops-username: ${{ secrets.SETOPS_USER }}
