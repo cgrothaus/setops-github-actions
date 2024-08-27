@@ -85,7 +85,7 @@ The default configuration installs the latest version of SetOps CLI and a wrappe
 
 ```yaml
 steps:
-  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action
+  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action-temp
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -94,7 +94,7 @@ A specific version of SetOps CLI can be installed:
 
 ```yaml
 steps:
-  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action
+  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action-temp
     with:
       setops_version: 1.0.0
       github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -104,7 +104,7 @@ Credentials for SetOps can be configured:
 
 ```yaml
 steps:
-  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action
+  - uses: cgrothaus/setops-github-actions/setup@use-node20-for-github-action-temp
     with:
       setops_organization: <yourorganization>
       setops_username: my-ci-user@setops.co
@@ -134,7 +134,7 @@ jobs:
         uses: actions/checkout@v4
       - name: "Build image and push it to SetOps image registry"
         id: build_and_push_image
-        uses: setopsco/github-actions/build-and-push-image@v3
+        uses: cgrothaus/setops-github-actions/build-and-push-image@use-node20-for-github-action-temp
         with:
           setops-organization: <yourorganization>
           setops-username: ${{ secrets.SETOPS_USER }}
@@ -171,7 +171,7 @@ deploy:
       uses: actions/checkout@v4
     - name: "Deploy project on SetOps"
       id: deploy
-      uses: cgrothaus/setops-github-actions/deployment@use-node20-for-github-action
+      uses: cgrothaus/setops-github-actions/deployment@use-node20-for-github-action-temp
       with:
         setops-organization: <yourorganization>
         setops-username: ${{ secrets.SETOPS_USER }}

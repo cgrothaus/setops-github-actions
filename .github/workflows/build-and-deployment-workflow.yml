@@ -85,7 +85,7 @@ jobs:
         uses: actions/checkout@v4
       - name: "Build image and push it to SetOps image registry"
         id: build-and-push-image
-        uses: setopsco/github-actions/build-and-push-image@v3
+        uses: cgrothaus/setops-github-actions/build-and-push-image@use-node20-for-github-action-temp
         with:
           setops-api-domain: ${{ inputs.setops-api-domain }}
           setops-organization: ${{ inputs.setops-organization }}
@@ -116,7 +116,7 @@ jobs:
         uses: actions/checkout@v4
       - name: "Deploy apps on SetOps"
         id: deploy
-        uses: cgrothaus/setops-github-actions/deployment@use-node20-for-github-action
+        uses: cgrothaus/setops-github-actions/deployment@use-node20-for-github-action-temp
         with:
           setops-api-domain: ${{ inputs.setops-api-domain }}
           setops-organization: ${{ inputs.setops-organization }}
