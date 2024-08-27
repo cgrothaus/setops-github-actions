@@ -131,7 +131,7 @@ jobs:
       image-tag: ${{ steps.build_and_push_image.outputs.image-tag }}
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: "Build image and push it to SetOps image registry"
         id: build_and_push_image
         uses: setopsco/github-actions/build-and-push-image@v3
@@ -168,7 +168,7 @@ deploy:
   needs: build
   steps:
     - name: "Checkout repository"
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: "Deploy project on SetOps"
       id: deploy
       uses: cgrothaus/setops-github-actions/deployment@use-node20-for-github-action
